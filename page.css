@@ -1,0 +1,325 @@
+/* 色彩與全局變數 */
+    :root {
+      --color-dark-brown: #3D2314;
+      --color-milk-pink:  #F7D6DF;
+      --color-baby-blue:  #BDE0FE;
+      --color-baby-yellow:#FEF9C3;
+      --color-bg-cream:   #FAF8F5;
+      --color-white:      #FFFFFF;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif;
+      background-color: var(--color-bg-cream);
+      color: var(--color-dark-brown);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* 頂部公告欄與 Header */
+    .announcement-bar {
+    background-color: var(--color-milk-pink);
+    color: var(--color-dark-brown);
+    text-align: center;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+    .header {
+      background-color: var(--color-bg-cream);
+      border-bottom: 2px solid var(--color-dark-brown);
+      padding: 20px 0;
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: 2px;
+    }
+
+    .logo::after {
+      content: '';
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background-color: var(--color-baby-yellow);
+      border: 1.5px solid var(--color-dark-brown);
+      border-radius: 50%;
+      margin-left: 4px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    /* 麵包屑導覽 (Breadcrumbs) */
+    .breadcrumb {
+      padding: 20px 0;
+      font-size: 13px;
+      color: #777;
+    }
+
+    .breadcrumb a { color: var(--color-dark-brown); }
+    .breadcrumb span { margin: 0 8px; }
+
+    /* 商品主要區塊 (兩欄式) */
+    .pdp-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 60px;
+    }
+
+    /* 左側：大圖 + 縮圖藝廊 */
+    .gallery-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .main-image {
+      width: 100%;
+      height: 520px;
+      border-radius: 8px;
+      border: 1.5px solid var(--color-dark-brown);
+      object-fit: cover;
+    }
+
+    .thumbnail-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .thumb-img {
+      width: 100%;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid var(--color-dark-brown);
+      cursor: pointer;
+      opacity: 0.7;
+      transition: opacity 0.2s ease;
+    }
+
+    .thumb-img.active, .thumb-img:hover {
+      opacity: 1;
+      border-width: 2px;
+    }
+
+    /* 右側：商品選購資訊 */
+    .product-details {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .badge-collection {
+      display: inline-block;
+      align-self: flex-start;
+      padding: 4px 10px;
+      background-color: var(--color-milk-pink);
+      color: var(--color-dark-brown);
+      border: 1px solid var(--color-dark-brown);
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    .pdp-title {
+      font-size: 26px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .pdp-subtitle {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 16px;
+    }
+
+    .pdp-price {
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--color-dark-brown);
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #E0DCD5;
+    }
+
+    /* 顏色與尺寸選擇按鈕 */
+    .option-group { margin-bottom: 20px; }
+
+    .option-label {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .color-picker { display: flex; gap: 12px; }
+
+    .color-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border: 1.5px solid var(--color-dark-brown);
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      background-color: var(--color-white);
+      cursor: pointer;
+    }
+
+    .color-btn.active { background-color: var(--color-milk-pink); }
+
+    .dot-pink { width: 12px; height: 12px; background-color: #F7D6DF; border-radius: 50%; border: 1px solid #3D2314; }
+    .dot-brown { width: 12px; height: 12px; background-color: #3D2314; border-radius: 50%; }
+
+    .size-picker { display: flex; gap: 10px; }
+
+    .size-btn {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1.5px solid var(--color-dark-brown);
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 14px;
+      background-color: var(--color-white);
+      cursor: pointer;
+    }
+
+    .size-btn.active {
+      background-color: var(--color-dark-brown);
+      color: var(--color-white);
+    }
+
+    /* 數量選擇與購買 CTA 按鈕 */
+    .action-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 10px;
+      margin-bottom: 30px;
+    }
+
+    .quantity-picker {
+      display: flex;
+      align-items: center;
+      border: 1.5px solid var(--color-dark-brown);
+      border-radius: 6px;
+      background-color: var(--color-white);
+    }
+
+    .qty-btn {
+      width: 36px;
+      height: 44px;
+      border: none;
+      background: none;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .qty-input {
+      width: 40px;
+      text-align: center;
+      border: none;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .btn-add-cart {
+      flex: 1;
+      height: 46px;
+      background-color: var(--color-dark-brown);
+      color: var(--color-milk-pink);
+      border: none;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .btn-buy-now {
+      flex: 1;
+      height: 46px;
+      background-color: var(--color-milk-pink);
+      color: var(--color-dark-brown);
+      border: 1.5px solid var(--color-dark-brown);
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    /* 折疊說明 / 尺寸表區塊 */
+    .info-accordion {
+      border-top: 1px solid #E0DCD5;
+      padding-top: 20px;
+    }
+
+    .accordion-item { margin-bottom: 16px; }
+
+    .accordion-title {
+      font-size: 14px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .accordion-content {
+      font-size: 13px;
+      color: #555;
+      line-height: 1.7;
+    }
+
+    /* 頁尾 Footer */
+    .footer {
+      background-color: var(--color-dark-brown);
+      color: var(--color-bg-cream);
+      padding: 40px 0;
+      margin-top: 60px;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-logo {
+      font-size: 18px;
+      font-weight: bold;
+      color: var(--color-milk-pink);
+      margin-bottom: 6px;
+    }
+
+    .footer-text { font-size: 13px; color: #D3C2B5; }
