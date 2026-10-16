@@ -449,7 +449,7 @@ a { color: inherit; text-decoration: none; }
 
     /* 1. 降低手機版的圖片高度，維持比例 */
     .card-img-top {
-        height: 180px !important;
+        height: 350px !important;
     }
 
     /* 2. 縮小卡片內距，留更多空間給文字 */
@@ -486,4 +486,27 @@ a { color: inherit; text-decoration: none; }
         height: 38px;
         font-size: 14px;
     }
+}
+
+
+/* 圖片容器設為相對定位 */
+.product-image-container {
+    position: relative;
+}
+
+/* 懸浮按鈕區塊預設隱藏並貼在圖片底部 */
+.product-hover-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease-in-out;
+}
+
+/* 當滑鼠移到圖片容器上時，按鈕浮現並滑上來 */
+.product-image-container:hover .product-hover-overlay {
+    opacity: 1;
+    transform: translateY(0);
 }

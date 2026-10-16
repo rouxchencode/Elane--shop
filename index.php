@@ -5,7 +5,7 @@
 
 
 <!-- 將資料庫連線資訊載入 -->
-<?php require_once("Connections/conn_db.php"); ?>
+<?php require_once("connections/conn_db.php"); ?>
 
 <!-- 載入共用PHP函數庫 -->
 

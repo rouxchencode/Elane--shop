@@ -57,23 +57,37 @@ $i = 1;
     <div class="row text-center mb-4">
         <?php while ($pList01_Rows = $pList01->fetch()) { ?>
             <div class="col-6 col-md-3 mb-4 d-flex align-items-stretch">
-                <div class="card w-100">
-                    <a href="product_detail.php?p_id=<?php echo $pList01_Rows['p_id']; ?>">
-                        <img src="./product_img/<?php echo $pList01_Rows['img_file']; ?>" class="card-img-top" alt="<?php echo htmlspecialchars($pList01_Rows['p_name']); ?>">
-                    </a>
-                    <div class="card-body d-flex flex-column justify-content-between">
-                        <div>
-                            <h5 class="card-title"><?php echo htmlspecialchars($pList01_Rows['p_name']); ?></h5>
-                            <p class="card-text text-muted fs-6"><?php echo mb_substr(htmlspecialchars($pList01_Rows['p_intro']), 0, 30, "utf-8"); ?></p>
-                        </div>
-                        <div>
-                            <p class="card-text fw-bold">NT$ <?php echo number_format($pList01_Rows['p_price']); ?></p>
-                            <div class="d-flex justify-content-center gap-2">
-                                <a href="product_detail.php?p_id=<?php echo $pList01_Rows['p_id']; ?>" class="btn btn-light btn-sm px-2 text-nowrap">更多資訊</a>
-                                <button type="button" class="btn btn-dark btn-sm  px-2 text-nowrap btn-add-cart" data-id="<?php echo $pList01_Rows['p_id']; ?>">加入購物車</button>
-                            </div>
+                <div class="card w-100 border-0 shadow-sm">
+                    
+                    <!-- 圖片與懸浮按鈕容器 -->
+                    <div class="position-relative overflow-hidden product-image-container">
+                        <a href="product_detail.php?p_id=<?php echo $pList01_Rows['p_id']; ?>">
+                            <img src="./product_img/<?php echo htmlspecialchars($pList01_Rows['img_file']); ?>" class="card-img-top" alt="<?php echo htmlspecialchars($pList01_Rows['p_name']); ?>">
+                        </a>
+                        
+                        <!-- 懸浮出現的加入購物車按鈕 -->
+                        <div class="product-hover-overlay">
+                            <button type="button" class="btn btn-dark btn-sm w-100 py-2 rounded-0 btn-add-cart" data-id="<?php echo $pList01_Rows['p_id']; ?>">
+                                <i class="bi bi-cart-plus me-1"></i> 立即選購
+                            </button>
                         </div>
                     </div>
+
+                    <!-- 商品文字資訊（點擊標題可看更多資訊） -->
+                    <div class="card-body d-flex flex-column justify-content-between text-start p-3">
+                        <div>
+                            <h5 class="card-title fs-6 text-truncate">
+                                <a href="product_detail.php?p_id=<?php echo $pList01_Rows['p_id']; ?>" class="text-decoration-none text-dark">
+                                    <?php echo htmlspecialchars($pList01_Rows['p_name']); ?>
+                                </a>
+                            </h5>
+                            <p class="card-text text-muted small mb-2"><?php echo mb_substr(htmlspecialchars($pList01_Rows['p_intro']), 0, 25, "utf-8"); ?></p>
+                        </div>
+                        <div>
+                            <p class="card-text fw-bold text-danger mb-0">NT$ <?php echo number_format($pList01_Rows['p_price']); ?></p>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         <?php } ?>
