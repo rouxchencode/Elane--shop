@@ -2,12 +2,16 @@
 
 以 PHP + MySQL (MariaDB) 開發的女裝線上購物網站,涵蓋商品瀏覽、分類、搜尋、購物車與結帳流程。目前為**開發中**,前台購物流程已可運作,會員、金流與後台管理仍在製作。
 
-> 品牌風格:莫蘭迪粉 / 奶茶色系,主打「優雅與隨性並存」的日常穿搭。
+> 品牌風格:深咖啡、淡粉與米白的配色,主打「優雅與隨性並存」的日常穿搭。
 
-<!-- 在這裡放截圖,例如:
+## 畫面預覽
 ![首頁](screenshots/home.png)
 ![購物車](screenshots/cart.png)
--->
+![結帳頁面](screenshots/checkout.png)
+![會員登入](screenshots/login.png)
+![商品頁面](screenshots/product-page.png)
+
+
 
 ---
 
@@ -126,8 +130,7 @@
 ## 作者
 
 - 姓名: Roux
-- Email: rouxchen.code@gmail
-- 作品集 / LinkedIn:
+- Email: rouxchen.code@gmail.com
 
 ---
 
