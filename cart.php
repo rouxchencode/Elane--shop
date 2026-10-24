@@ -2,46 +2,44 @@
 if (!isset($_SESSION)) {
     session_start();
 }
-require_once("Connections/conn_db.php");
+require_once("connections/conn_db.php");
 require_once("php_lib.php");
 
 $ip = $_SERVER['REMOTE_ADDR'];
 
-// ==================== [ 處理 1：更新數量 ] ====================
+// ==================== [ 處理 1:更新數量 ] ====================
 if (isset($_POST['action']) && $_POST['action'] == 'update') {
     $cartid = (int)$_POST['cartid'];
     $qty = (int)$_POST['qty'];
-    
+
     if ($qty > 0) {
-        $updateSql = sprintf("UPDATE cart SET qty = %d WHERE cartid = %d AND ip = '%s'", $qty, $cartid, $ip);
-        $link->query($updateSql);
+        $stmt = $link->prepare("UPDATE cart SET qty = ? WHERE cartid = ? AND ip = ?");
+        $stmt->execute([$qty, $cartid, $ip]);
     }
     header("Location: cart.php");
     exit();
 }
 
-// ==================== [ 處理 2：刪除購物車項目 ] ====================
+// ==================== [ 處理 2:刪除購物車項目 ] ====================
 if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['cartid'])) {
     $cartid = (int)$_GET['cartid'];
-    $deleteSql = sprintf("DELETE FROM cart WHERE cartid = %d AND ip = '%s'", $cartid, $ip);
-    $link->query($deleteSql);
+    $stmt = $link->prepare("DELETE FROM cart WHERE cartid = ? AND ip = ?");
+    $stmt->execute([$cartid, $ip]);
     header("Location: cart.php");
     exit();
 }
 
-// ==================== [ 處理 3：查詢購物車資料 ] ====================
-$querySql = sprintf(
-    "SELECT cart.cartid, cart.qty, product.p_id, product.p_name, product.p_price, product_img.img_file 
-     FROM cart 
-     JOIN product ON cart.p_id = product.p_id 
-     LEFT JOIN product_img ON product.p_id = product_img.p_id AND product_img.sort = 1 
-     WHERE cart.ip = '%s' AND cart.status = 1 
-     ORDER BY cart.cartid DESC", 
-    $ip
+// ==================== [ 處理 3:查詢購物車資料 ] ====================
+$cartRs = $link->prepare(
+    "SELECT cart.cartid, cart.qty, product.p_id, product.p_name, product.p_price, product_img.img_file
+     FROM cart
+     JOIN product ON cart.p_id = product.p_id
+     LEFT JOIN product_img ON product.p_id = product_img.p_id AND product_img.sort = 1
+     WHERE cart.ip = ? AND cart.status = 1
+     ORDER BY cart.cartid DESC"
 );
-
-$cartRs = $link->query($querySql);
-$totalRows = $cartRs ? $cartRs->rowCount() : 0;
+$cartRs->execute([$ip]);
+$totalRows = $cartRs->rowCount();
 $totalAmount = 0;
 ?>
 <!DOCTYPE html>
@@ -136,9 +134,8 @@ $totalAmount = 0;
                     <a href="index.php" class="btn btn-outline-dark">&laquo; 繼續購物</a>
                 </div>
                 <div class="col-md-6 text-end">
-                    <h4 class="mb-3">總計金額：<span class="text-danger fw-bold">NT$ <?php echo number_format($totalAmount); ?></span></h4>
                     <a href="checkout.php" class="btn btn-dark btn-lg px-4">前往結帳 &raquo;</a>
-                    <a href="shopcart_del.php" class="btn btn-dark btn-lg px-4" onclick="btn_confirmLink('確定清空購物車?','shopcart_del.php?mode=2')">清空購物車 &raquo;</a>
+                    <a href="shopcart_del.php?mode=2" class="btn btn-dark btn-lg px-4" onclick="btn_confirmLink('確定清空購物車?','shopcart_del.php?mode=2'); return false;">清空購物車 &raquo;</a>
                 </div>
             </div>
 

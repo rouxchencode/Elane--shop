@@ -2,7 +2,7 @@
 if (!isset($_SESSION)) {
     session_start();
 }
-require_once("Connections/conn_db.php");
+require_once("connections/conn_db.php");
 require_once("php_lib.php");
 ?>
 <!DOCTYPE html>

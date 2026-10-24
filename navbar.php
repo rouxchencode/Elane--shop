@@ -10,9 +10,9 @@
                 <li class="nav-item"><a href="login.php" class="nav-link">會員登入</a></li>
                 <li class="nav-item"><?php
                                         // 取得當前購物車總數量
-                                        $cartNumSql = sprintf("SELECT SUM(qty) as total_qty FROM cart WHERE ip = '%s' AND status = 1", $_SERVER['REMOTE_ADDR']);
-                                        $cartNumRs = $link->query($cartNumSql);
-                                        $cartNumRow = $cartNumRs ? $cartNumRs->fetch() : null;
+                                        $cartNumStmt = $link->prepare("SELECT SUM(qty) AS total_qty FROM cart WHERE ip = ? AND status = 1");
+                                        $cartNumStmt->execute([$_SERVER['REMOTE_ADDR']]);
+                                        $cartNumRow = $cartNumStmt->fetch();
                                         $totalCartQty = ($cartNumRow && $cartNumRow['total_qty']) ? (int)$cartNumRow['total_qty'] : 0;
                                         ?>
                     <a class="nav-link" href="cart.php">
@@ -88,8 +88,8 @@ function multiList01()
                     <a href="index.php?classid=<?php echo $pyclass01_Rows['classid']; ?>" class="dropdown-item dropdown-toggle"><i class="fas <?php echo $pyclass01_Rows['fonticon']; ?> fa-lg fa-fw"></i><?php echo $pyclass01_Rows['cname']; ?></a>
                     <?php
                     //列出產品類別對應的第二層資料
-                    $SQLstring = sprintf("SELECT * FROM pyclass WHERE level=2 AND uplink=%d ORDER BY sort", $pyclass01_Rows['classid']);
-                    $pyclass02 = $link->query($SQLstring);
+                    $pyclass02 = $link->prepare("SELECT * FROM pyclass WHERE level=2 AND uplink=? ORDER BY sort");
+                    $pyclass02->execute([$pyclass01_Rows['classid']]);
                     ?>
                     <ul class="dropdown-menu">
                         <?php while ($pyclass02_Rows = $pyclass02->fetch()) { ?>

@@ -2,24 +2,22 @@
 if (!isset($_SESSION)) {
     session_start();
 }
-require_once("Connections/conn_db.php");
+require_once("connections/conn_db.php");
 require_once("php_lib.php");
 
 $ip = $_SERVER['REMOTE_ADDR'];
 
 // ==================== [ 查詢購物車資料 ] ====================
-$querySql = sprintf(
-    "SELECT cart.cartid, cart.qty, product.p_id, product.p_name, product.p_price, product_img.img_file 
-     FROM cart 
-     JOIN product ON cart.p_id = product.p_id 
-     LEFT JOIN product_img ON product.p_id = product_img.p_id AND product_img.sort = 1 
-     WHERE cart.ip = '%s' AND cart.status = 1 
-     ORDER BY cart.cartid DESC", 
-    $ip
+$cartRs = $link->prepare(
+    "SELECT cart.cartid, cart.qty, product.p_id, product.p_name, product.p_price, product_img.img_file
+     FROM cart
+     JOIN product ON cart.p_id = product.p_id
+     LEFT JOIN product_img ON product.p_id = product_img.p_id AND product_img.sort = 1
+     WHERE cart.ip = ? AND cart.status = 1
+     ORDER BY cart.cartid DESC"
 );
-
-$cartRs = $link->query($querySql);
-$totalRows = $cartRs ? $cartRs->rowCount() : 0;
+$cartRs->execute([$ip]);
+$totalRows = $cartRs->rowCount();
 $totalAmount = 0;
 $shippingFee = 100; // 固定運費
 

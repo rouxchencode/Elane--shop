@@ -135,13 +135,13 @@ a { color: inherit; text-decoration: none; }
 /* 使用半透明色塊疊加模特兒背景圖，保持文字清晰 */
 .hero-dark {
     background: linear-gradient(rgba(61, 35, 20, 0.8), rgba(61, 35, 20, 0.8)), 
-                url('./bg.jpg') center/cover;
+                url('./bg_img/bg.jpg') center/cover;
     color: var(--color-milk-pink);
 }
 
 .hero-light {
     background: linear-gradient( rgba(247, 214, 223, 0.8), rgba(247, 214, 223, 0.8) ), 
-                url('./bg1.jpg') center/cover;
+                url('./bg_img/bg1.jpg') center/cover;
     color: var(--color-dark-brown);
 }
 
